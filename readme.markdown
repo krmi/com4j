@@ -1,7 +1,7 @@
 Using com4j
 ==========
 
-[Download com4j](https://github.com/kohsuke/com4j/downloads) or [access it from Maven repository](http://maven.jenkins-ci.org/content/repositories/releases/org/jvnet/com4j/com4j/)
+[Download com4j](https://github.com/krmi/com4j/downloads) or [access it from Maven repository](http://maven.jenkins-ci.org/content/repositories/releases/org/jvnet/com4j/com4j/)
 
 Building com4j
 ==============

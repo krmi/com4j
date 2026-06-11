@@ -1,7 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.jvnet.com4j</groupId>
+    <groupId>de.cerpsw.external.com4j</groupId>
     <artifactId>com4j-parent</artifactId>
     <version>2.2-SNAPSHOT</version>
   </parent>
@@ -11,30 +11,87 @@
 
   <name>com4j</name>
 
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.7</version>
-        <executions>
-          <execution>
-            <phase>generate-resources</phase>
-            <configuration>
-              <target>
-                <copy file="../native/${mode}/com4j.dll" tofile="target/classes/com4j/com4j-x86.dll" />
-                <copy file="../native/x64/${mode}/com4j.dll" tofile="target/classes/com4j/com4j-amd64.dll" />
-              </target>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-
   <properties>
-    <mode>Release</mode><!-- set to Debug to bundle debug builds of the DLL -->
+    <nativeBuildMode>Release</nativeBuildMode>
+    <!-- Override if msbuild is not in PATH, e.g.: -->
+    <!-- "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" -->
+    <msbuild.exe>msbuild</msbuild.exe>
   </properties>
+
+  <profiles>
+    <profile>
+      <id>native-build</id>
+      <!-- Activate with -Pnative-build from a Visual Studio Developer Command Prompt -->
+      <build>
+        <plugins>
+          <!-- Build native DLL via MSBuild (requires Visual Studio) -->
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>native-build-x64</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>${msbuild.exe}</executable>
+                  <workingDirectory>${project.basedir}/..</workingDirectory>
+                  <arguments>
+                    <argument>com4j.sln</argument>
+                    <argument>/p:Configuration=${nativeBuildMode}</argument>
+                    <argument>/p:Platform=x64</argument>
+                    <argument>/t:Rebuild</argument>
+                    <argument>/nologo</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+              <execution>
+                <id>native-build-win32</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>${msbuild.exe}</executable>
+                  <workingDirectory>${project.basedir}/..</workingDirectory>
+                  <arguments>
+                    <argument>com4j.sln</argument>
+                    <argument>/p:Configuration=${nativeBuildMode}</argument>
+                    <argument>/p:Platform=Win32</argument>
+                    <argument>/t:Rebuild</argument>
+                    <argument>/nologo</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- Copy and rename built DLLs into the Java classpath -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>copy-native-dlls</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target>
+                    <copy file="${project.basedir}/../native/Win32/${nativeBuildMode}/com4j.dll"
+                          tofile="${project.build.outputDirectory}/com4j/com4j-x86.dll" />
+                    <copy file="${project.basedir}/../native/x64/${nativeBuildMode}/com4j.dll"
+                          tofile="${project.build.outputDirectory}/com4j/com4j-amd64.dll" />
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

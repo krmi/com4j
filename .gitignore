@@ -10,3 +10,14 @@
 *.tli
 vc90.idb
 vc90.pdb
+*.dll
+*.pdb
+*.lib
+target/
+output/
+build/
+masm.lst
+*_midl.h
+*_i.c
+native/Win32/
+native/x64/

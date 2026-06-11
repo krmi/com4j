@@ -15,7 +15,7 @@ The goal of the project is to provide a better integration of Java and COM.
 
 ## Downloadables
 
-Download the distribution from [here](https://github.com/kohsuke/com4j/downloads). Source code is on [GitHub](https://github.com/kohsuke/com4j)
+Download the distribution from [here](https://github.com/krmi/com4j/downloads). Source code is on [GitHub](https://github.com/krmi/com4j)
 
 ## Documentations
 

@@ -60,7 +60,7 @@ public class Com4jgenMojo extends AbstractMojo implements ErrorListener {
 	 * and can't be used as a variable.
 	 * 
 	 * @parameter expression="${package}" alias="package"
-	 *            default-value="org.jvnet.com4j.generated"
+	 *            default-value="de.cerpsw.external.com4j.generated"
 	 */
 	private String _package; // reserved keyword...
 
@@ -142,7 +142,18 @@ public class Com4jgenMojo extends AbstractMojo implements ErrorListener {
 	 */
 	private String libVer;
 
+	/**
+	 * Skip execution. Set to true to skip code generation.
+	 *
+	 * @parameter expression="${skip}" default-value="false"
+	 */
+	private boolean skip;
+
 	public void execute() throws MojoExecutionException {
+		if (skip) {
+			getLog().info("Skipping com4j code generation.");
+			return;
+		}
 		getLog().debug("Starting Com4jMojo for: " + file);
 
 		checkEnv();

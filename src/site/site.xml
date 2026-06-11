@@ -13,9 +13,9 @@
   <body>
     <menu name="com4j">
       <item name="Introduction" href="/index.html"/>
-      <item name="Download"     href="https://github.com/kohsuke/com4j/downloads"/>
-      <item name="Source code"  href="https://github.com/kohsuke/com4j"/>
-      <item name="Bugs"         href="https://github.com/kohsuke/com4j/issues"/>
+      <item name="Download"     href="https://github.com/krmi/com4j/downloads"/>
+      <item name="Source code"  href="https://github.com/krmi/com4j"/>
+      <item name="Bugs"         href="https://github.com/krmi/com4j/issues"/>
     </menu>
 
     <menu name="References">

@@ -2,7 +2,7 @@
 
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.jvnet.com4j.typelibs</groupId>
+    <groupId>de.cerpsw.external.com4j.typelibs</groupId>
     <artifactId>typelibs</artifactId>
     <version>1</version>
   </parent>
@@ -13,7 +13,7 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.jvnet.com4j</groupId>
+        <groupId>de.cerpsw.external.com4j</groupId>
         <artifactId>maven-com4j-plugin</artifactId>
         <executions>
           <execution>
