@@ -3,7 +3,7 @@
 
   <groupId>de.cerpsw.external.com4j</groupId>
   <artifactId>com4j-parent</artifactId>
-  <version>2.2-SNAPSHOT</version>
+  <version>20260611</version>
   <packaging>pom</packaging>
 
   <name>com4j Parent</name>

@@ -3,12 +3,12 @@
   <parent>
     <groupId>de.cerpsw.external.com4j</groupId>
     <artifactId>com4j-parent</artifactId>
-    <version>2.2-SNAPSHOT</version>
+    <version>20260611</version>
   </parent>
 
   <artifactId>com4j-dist</artifactId>
   <packaging>pom</packaging>
-  <version>2.2-SNAPSHOT</version>
+  <version>20260611</version>
 
   <name>com4j distribution</name>
 
